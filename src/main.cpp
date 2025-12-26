@@ -1,6 +1,6 @@
 #include <SFML/Graphics.hpp>
 
-#include "PerlinNoise.hpp"
+#include "include/PerlinNoise.hpp"
 
 #include <cstdint>
 
