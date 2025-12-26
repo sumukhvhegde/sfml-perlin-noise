@@ -1,8 +1,10 @@
 #include <SFML/Graphics.hpp>
 
-#include "include/PerlinNoise.hpp"
+#include "PerlinNoise.hpp"
 
 #include <cstdint>
+
+#include <iostream>
 
 constexpr unsigned int WIDTH = 512;
 constexpr unsigned int HEIGHT = 512;
@@ -19,7 +21,7 @@ int main() {
 			float nx = x * 0.02f;
 			float ny = y * 0.02f;
 
-			float value = noise.sample(nx, ny);
+			float value = noise.fbm(nx, ny);
 
 			value = ((value + 1.f) * 0.5f);
 
@@ -29,7 +31,10 @@ int main() {
 	}
 
 	sf::Texture texture;
-	texture.loadFromImage(image);
+	if (!texture.loadFromImage(image)) {
+		std::cerr << "Couldn't load the image.\n";
+		return 1;
+	};
 
 	sf::Sprite sprite(texture);
 

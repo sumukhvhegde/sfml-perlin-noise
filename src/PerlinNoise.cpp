@@ -64,3 +64,24 @@ float PerlinNoise::sample(float x, float y) const {
 
     return lerp(nx0, nx1, v);
 }
+
+float PerlinNoise::fbm(float x, float y,
+    int octaves,
+    float lacunarity,
+    float persistence) const
+{
+    float value = 0.f;
+    float amplitude = 1.f;
+    float frequency = 1.f;
+    float maxValue = 0.f;
+
+    for (int i = 0; i < octaves; ++i) {
+        value += sample(x * frequency, y * frequency) * amplitude;
+        maxValue += amplitude;
+
+        amplitude *= persistence;
+        frequency *= lacunarity;
+    }
+    
+    return value / maxValue;
+}
